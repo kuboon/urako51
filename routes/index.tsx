@@ -40,7 +40,12 @@ function App() {
             <div className="card bg-base-100 shadow-xl">
               <div className="card-body">
                 <p className="text-lg font-bold">2025年11月23日 17:00</p>
-                <a href="https://www.hotel-brillante.com/access" className="link link-primary">@ホテルブリランテ武蔵野</a>
+                <a
+                  href="https://www.hotel-brillante.com/access"
+                  className="link link-primary"
+                >
+                  @ホテルブリランテ武蔵野
+                </a>
               </div>
             </div>
           </div>
@@ -48,7 +53,7 @@ function App() {
       </div>
 
       {/* Image Gallery */}
-      <div className="w-full place-content-center carousel carousel-center rounded-box">
+      <div className="w-full place-content-center carousel carousel-center">
         {data.photos.map((photo) => (
           <div key={photo.alt} className="carousel-item">
             <img
@@ -72,7 +77,9 @@ function App() {
               <div className="chat-header">
                 {message.date}
               </div>
-              <div className="chat-bubble whitespace-pre-line">{message.text}</div>
+              <div className="chat-bubble whitespace-pre-line">
+                {message.text}
+              </div>
             </div>
           ))}
         </div>
@@ -101,7 +108,10 @@ function App() {
       <footer className="footer footer-center p-10 bg-base-200 text-base-content">
         <div>
           <p className="font-bold">{data.title}</p>
-          <p>© 2025 - All rights reserved</p>
+          <p>
+            © 2025 - administrated by{" "}
+            <a href="https://o.kbn.one">ohkubo kohei</a>
+          </p>
         </div>
       </footer>
     </div>
