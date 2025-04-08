@@ -39,4 +39,8 @@ export default {
       href: "https://www.facebook.com/groups/urako51",
     },
   },
+  themes: [
+    { label: "default", value: "nord" },
+    { label: "eva", value: "eva" },
+  ],
 };

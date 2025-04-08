@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=BIZ+UDPMincho:wght@700&display=swap");
 @plugin "daisyui" {
   themes: "nord";
 }
@@ -35,7 +36,87 @@
   --depth: 0;
   --noise: 0;
 }
+
+@plugin "daisyui/theme" {
+  name: "eva";
+  default: false;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: oklch(0% 0 0);
+  --color-base-200: oklch(14% 0.004 49.25);
+  --color-base-300: oklch(21% 0.006 56.043);
+  --color-base-content: oklch(100% 0 0);
+  --color-primary: oklch(57% 0.245 27.325);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(90% 0.182 98.111);
+  --color-secondary-content: oklch(14.507% 0.035 2.72);
+  --color-accent: oklch(89% 0.196 126.665);
+  --color-accent-content: oklch(14.258% 0.033 299.844);
+  --color-neutral: oklch(26% 0.019 237.69);
+  --color-neutral-content: oklch(70% 0.019 237.69);
+  --color-info: oklch(89% 0.196 126.665);
+  --color-info-content: oklch(17.111% 0.017 206.015);
+  --color-success: oklch(89% 0.196 126.665);
+  --color-success-content: oklch(17.112% 0.017 144.778);
+  --color-warning: oklch(90% 0.182 98.111);
+  --color-warning-content: oklch(17.113% 0.016 74.427);
+  --color-error: oklch(0% 0 0);
+  --color-error-content: oklch(57% 0.245 27.325);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0;
+  --size-selector: 0.3125rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 0;
+  --noise: 1;
+  --card-p: 2rem;
+}
+:root:has(input.theme-controller[value="eva"]:checked) {
+  --default-font-family: "BIZ UDPMincho", serif;
+  font-weight: 700;
+  font-style: normal;
+  .card {
+    --unit: var(--card-p);
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--color-primary),
+      var(--color-primary) 10px,
+      var(--color-base-100) 10px,
+      var(--color-base-100) 20px
+    );
+    border: solid var(--color-primary) var(--border);
+    &::after {
+      content: "";
+      --unit-14: calc(var(--unit) * 1.414 / 2);
+      background: repeating-linear-gradient(
+        to bottom left,
+        var(--color-base-100),
+        var(--color-base-100) var(--unit-14),
+        var(--color-primary) var(--unit-14),
+        var(--color-primary) calc(var(--unit-14) + var(--border)),
+        var(--color-base-100) 0,
+        var(--color-base-100)
+      );
+      background-size: var(--unit) var(--unit);
+      top: -1.5px;
+      bottom: 0;
+      left: 0;
+      right: -1.5px;
+      background-position: top right;
+      background-repeat: no-repeat;
+      position: absolute;
+      z-index: 0;
+    }
+    .card-body {
+      background: var(--color-base-100);
+      margin-bottom: var(--unit);
+      padding: var(--unit);
+    }
+  }
+}
+
 .carousel img {
   height: 30vmax;
-  object-fit: cover; /* Added to maintain aspect ratio */
+  object-fit: cover;
 }

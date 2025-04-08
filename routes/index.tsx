@@ -27,22 +27,22 @@ const LINE = ({ size }: { size: number }) => (
 
 function App() {
   return (
-    <div className="min-h-screen bg-base-300">
+    <div class="min-h-screen bg-base-300">
       {/* Hero Section */}
-      <div className="hero min-h-[50vh] bg-base-200">
-        <div className="hero-content text-center">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-8">
+      <div class="hero min-h-[50vh] bg-base-200">
+        <div class="hero-content text-center">
+          <div class="max-w-3xl">
+            <h1 class="text-5xl font-bold mb-8">
               {data.subjects[0]}
               <span class="text-nowrap">{data.subjects[1]}</span>
             </h1>
-            <p className="text-2xl mb-4">{data.subjects[2]}</p>
-            <div className="card bg-base-100 shadow-xl">
-              <div className="card-body">
-                <p className="text-lg font-bold">2025年11月23日 17:00</p>
+            <p class="text-2xl mb-4">{data.subjects[2]}</p>
+            <div class="card bg-base-100 shadow-xl">
+              <div class="card-body">
+                <p class="text-lg font-bold">2025年11月23日 17:00</p>
                 <a
                   href="https://www.hotel-brillante.com/access"
-                  className="link link-primary"
+                  class="link link-primary"
                 >
                   @ホテルブリランテ武蔵野
                 </a>
@@ -53,9 +53,9 @@ function App() {
       </div>
 
       {/* Image Gallery */}
-      <div className="w-full place-content-center carousel carousel-center">
+      <div class="w-full place-content-center carousel carousel-center">
         {data.photos.map((photo) => (
-          <div key={photo.alt} className="carousel-item">
+          <div key={photo.alt} class="carousel-item">
             <img
               src={photo.src}
               alt={photo.alt}
@@ -65,19 +65,19 @@ function App() {
       </div>
 
       {/* Chat Section */}
-      <div className="container mx-auto px-4 py-16 bg-base-100">
-        <div className="flex flex-col gap-8">
+      <div class="container mx-auto px-4 py-16 bg-base-100">
+        <div class="flex flex-col gap-8">
           {data.messages.map((message, index) => (
-            <div key={index} className="chat chat-start">
-              <div className="chat-image avatar">
-                <div className="w-12 rounded-full">
+            <div key={index} class="chat chat-start">
+              <div class="chat-image avatar">
+                <div class="w-12 rounded-full">
                   <img src={message.icon} alt="icon" />
                 </div>
               </div>
-              <div className="chat-header">
+              <div class="chat-header">
                 {message.date}
               </div>
-              <div className="chat-bubble whitespace-pre-line">
+              <div class="chat-bubble whitespace-pre-line">
                 {message.text}
               </div>
             </div>
@@ -85,18 +85,18 @@ function App() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-16">
-        <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+      <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
           <a
             href={data.links.line.href}
-            className="btn btn-outline btn-primary btn-lg gap-2"
+            class="btn btn-outline btn-primary btn-lg gap-2"
           >
             <LINE size={24} />
             LINEオープンチャットに参加
           </a>
           <a
             href={data.links.facebook.href}
-            className="btn btn-outline btn-primary btn-lg gap-2"
+            class="btn btn-outline btn-primary btn-lg gap-2"
           >
             <FACEBOOK size={24} />
             Facebookグループに参加
@@ -105,13 +105,25 @@ function App() {
       </div>
 
       {/* Footer */}
-      <footer className="footer footer-center p-10 bg-base-200 text-base-content">
+      <footer class="footer sm:footer-horizontal p-10 bg-base-200 text-base-content">
         <div>
-          <p className="font-bold">{data.title}</p>
-          <p>
+          <p class="font-bold">{data.title}</p>
+          <p class="block">
             © 2025 - administrated by{" "}
             <a href="https://o.kbn.one">ohkubo kohei</a>
           </p>
+        </div>
+        <div class="join col-auto place-self-end">
+          {data.themes.map((theme) => (
+            <input
+              key={theme.value}
+              type="radio"
+              name="theme-buttons"
+              class="btn theme-controller join-item"
+              aria-label={theme.label}
+              value={theme.value}
+            />
+          ))}
         </div>
       </footer>
     </div>
