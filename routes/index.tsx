@@ -33,7 +33,8 @@ function App() {
         <div className="hero-content text-center">
           <div className="max-w-3xl">
             <h1 className="text-5xl font-bold mb-8">
-              {data.subjects[0]} {data.subjects[1]}
+              {data.subjects[0]}
+              <span class="text-nowrap">{data.subjects[1]}</span>
             </h1>
             <p className="text-2xl mb-4">{data.subjects[2]}</p>
             <div className="badge badge-primary badge-lg">
@@ -53,6 +54,25 @@ function App() {
             />
           </div>
         ))}
+      </div>
+
+      {/* Chat Section */}
+      <div className="container mx-auto px-4 py-16 bg-base-100">
+        <div className="flex flex-col gap-8">
+          {data.messages.map((message, index) => (
+            <div key={index} className="chat chat-start">
+              <div className="chat-image avatar">
+                <div className="w-12 rounded-full">
+                  <img src={message.icon} alt="icon" />
+                </div>
+              </div>
+              <div className="chat-header">
+                {message.date}
+              </div>
+              <div className="chat-bubble whitespace-pre-line">{message.text}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="container mx-auto px-4 py-16">
