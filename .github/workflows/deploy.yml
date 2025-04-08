@@ -27,8 +27,18 @@ jobs:
         run: "deno task build"
 
       - name: Upload to Deno Deploy
+        id: deploy
         uses: denoland/deployctl@v1
         with:
           project: "urako51"
           entrypoint: "main.ts"
           root: "."
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const url = "${{ steps.deploy.outputs.url }}}"
+            await core.summary
+              .addHeading('Deploy successful!')
+              .addLink(url, url)
+              .write()
