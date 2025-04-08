@@ -11,4 +11,4 @@ import manifest from "./fresh.gen.ts";
 import config from "./fresh.config.ts";
 
 const handler = createHandler(manifest, config);
-export default { fetch: handler };
+export default { fetch: await handler };
