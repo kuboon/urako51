@@ -37,8 +37,11 @@ function App() {
               <span class="text-nowrap">{data.subjects[1]}</span>
             </h1>
             <p className="text-2xl mb-4">{data.subjects[2]}</p>
-            <div className="badge badge-primary badge-lg">
-              2025年秋頃 同窓会開催予定
+            <div className="card bg-base-100 shadow-xl">
+              <div className="card-body">
+                <p className="text-lg font-bold">2025年11月23日 17:00</p>
+                <a href="https://www.hotel-brillante.com/access" className="link link-primary">@ホテルブリランテ武蔵野</a>
+              </div>
             </div>
           </div>
         </div>
