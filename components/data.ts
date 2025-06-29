@@ -41,6 +41,6 @@ export default {
   },
   themes: [
     { label: "default", value: "nord" },
-    { label: "eva", value: "eva" },
+    { label: "dark", value: "eva" },
   ],
 };
