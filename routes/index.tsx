@@ -70,9 +70,7 @@ function App() {
           {data.messages.map((message, index) => (
             <div key={index} class="chat chat-start">
               <div class="chat-image avatar">
-                <div class="w-12 rounded-full">
-                  <img src={message.icon} alt="icon" />
-                </div>
+                <div class="w-12 mask mask-circle" />
               </div>
               <div class="chat-header">
                 {message.date}

@@ -35,6 +35,7 @@
   --border: 1px;
   --depth: 0;
   --noise: 0;
+  --chat-icon-img: url("mikami.png");
 }
 
 @plugin "daisyui/theme" {
@@ -71,6 +72,7 @@
   --depth: 0;
   --noise: 1;
   --card-p: 2rem;
+  --chat-icon-img: url("mikami-dark.jpg");
 }
 :root:has(input.theme-controller[value="eva"]:checked) {
   --default-font-family: "BIZ UDPMincho", serif;
@@ -119,4 +121,9 @@
 .carousel img {
   height: 30vmax;
   object-fit: cover;
+}
+
+.chat-image div {
+  background-image: var(--chat-icon-img);
+  background-size: cover;
 }
