@@ -46,6 +46,9 @@ function App() {
                 >
                   @ホテルブリランテ武蔵野
                 </a>
+                <a href="https://forms.gle/YBWXq6jNw2MNNojQ8" class="link link-primary text-2xl">参加申込フォーム</a>
+                <p>人数把握の都合上、9月7日(日)までにご回答お願いします。</p>
+                <p>出欠未定の場合も一旦ご登録をお願いします。</p>
               </div>
             </div>
           </div>
