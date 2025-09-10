@@ -1,11 +1,3 @@
-// get csv from https://docs.google.com/spreadsheets/d/e/2PACX-1vTWdM66aZTadq8LqSAVZsmR3zMmYbU1H9yackTS64Gqy88h0ZwPy5RHwfWxCENIMcsJyxY3c3Crm1mu/pub?gid=1491927313&single=true&output=csv
-// parse it and generate json
-// csv first line is header like this
-// タイムスタンプ,メールアドレス,参加表明,氏名,活動地域,近況,電話番号,運営メンバーへ,学生注目
-// then pick only these columns
-// 参加表明,氏名,活動地域,近況
-// and convert to json array.
-
 import { Handlers } from "$fresh/server.ts";
 
 type Row = {
