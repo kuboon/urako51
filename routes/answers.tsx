@@ -57,7 +57,12 @@ export const handler: Handlers<Props> = {
       name: row["氏名"],
       location: row["活動地域"],
       update: row["近況"],
-    })).sort((a, b) => a.attendance.localeCompare(b.attendance));
+    })).sort((a, b) => {
+      const ATTEND_YES = "参加します";
+      if (a.attendance === ATTEND_YES && b.attendance !== ATTEND_YES) return -1;
+      if (a.attendance !== ATTEND_YES && b.attendance === ATTEND_YES) return 1;
+      return a.attendance.localeCompare(b.attendance);
+    });
     return ctx.render({ rows: filtered });
   },
 };
@@ -113,27 +118,15 @@ export default function AnswersPage({ data }: { data: Props }) {
   return (
     <div>
       <h1 class="text-xl m-4">回答一覧</h1>
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th class="w-30">氏名</th>
-              <th>参加表明</th>
-              <th>活動地域</th>
-              <th>近況</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.rows.map((row, index) => (
-              <tr key={index}>
-                <td>{row.name}</td>
-                <td>{row.attendance}</td>
-                <td>{row.location}</td>
-                <td>{row.update}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="answers m-4">
+        {data.rows.map((row, index) => (
+          <div key={index} class="flex flex-wrap gap-4 border-t even:bg-base-200">
+            <div class="font-bold">{row.name}</div>
+            <div>{row.attendance}</div>
+            <div>{row.location}</div>
+            <div>{row.update}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
