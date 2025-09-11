@@ -2,7 +2,7 @@ import { Handlers } from "$fresh/server.ts";
 
 const BASIC_AUTH = Deno.env.get("BASIC_AUTH");
 const csvUrl = Deno.env.get("CSV_URL")
-if(!BASIC_AUTH || !csvUrl) {
+if(!Deno.env.get("BUILD") && !BASIC_AUTH || !csvUrl) {
   throw new Error("BASIC_AUTH or CSV_URL is not set");
 }
 type Row = {
