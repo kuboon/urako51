@@ -1,5 +1,10 @@
 import { Handlers } from "$fresh/server.ts";
 
+const BASIC_AUTH = Deno.env.get("BASIC_AUTH");
+const csvUrl = Deno.env.get("CSV_URL")
+if(!BASIC_AUTH || !csvUrl) {
+  throw new Error("BASIC_AUTH or CSV_URL is not set");
+}
 type Row = {
   attendance: string;
   name: string;
@@ -10,8 +15,6 @@ type Row = {
 type Props = {
   rows: Row[];
 };
-
-const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWdM66aZTadq8LqSAVZsmR3zMmYbU1H9yackTS64Gqy88h0ZwPy5RHwfWxCENIMcsJyxY3c3Crm1mu/pub?gid=1491927313&single=true&output=csv";
 
 const cache = await caches.open("answers-csv-cache");
 async function cachedFetch(url: string): Promise<Response> {
@@ -31,8 +34,21 @@ async function cachedFetch(url: string): Promise<Response> {
   return res;
 }
 
+const basicAuthHeader = "Basic " + btoa(BASIC_AUTH);
+const realm = "LINEオープンチャットのパスワードを2回入力";
+
 export const handler: Handlers<Props> = {
-  async GET(_req, ctx) {
+  async GET(req, ctx) {
+    const auth = req.headers.get("authorization");
+    if (auth !== basicAuthHeader) {
+      return new Response("Unauthorized", {
+        status: 401,
+        headers: {
+          "WWW-Authenticate": `Basic realm="${encodeURIComponent(realm)}", charset="UTF-8"`,
+        },
+      });
+    }
+
     const res = await cachedFetch(csvUrl);
     const csvText = await res.text();
     const parsed = parseCSV(csvText!).filter((row) => row.length > 1);
