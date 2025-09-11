@@ -26,5 +26,9 @@
     "lib": ["dom", "dom.iterable", "esnext", "deno.unstable"]
   },
   "unstable": ["kv"],
-  "nodeModulesDir": "auto"
+  "nodeModulesDir": "auto",
+  "deploy": {
+    "org": "kuboon-tokyo",
+    "app": "urako51"
+  }
 }
