@@ -1,8 +1,9 @@
-import { Handlers } from "$fresh/server.ts";
+import { define } from "../define.ts";
 
 const BASIC_AUTH = Deno.env.get("BASIC_AUTH");
-const csvUrl = Deno.env.get("CSV_URL")
-if(!Deno.env.get("BUILD") && !BASIC_AUTH || !csvUrl) {
+const csvUrl = Deno.env.get("CSV_URL");
+if (!BASIC_AUTH || !csvUrl) {
+  console.log("hoge", BASIC_AUTH, csvUrl);
   throw new Error("BASIC_AUTH or CSV_URL is not set");
 }
 type Row = {
@@ -37,14 +38,17 @@ async function cachedFetch(url: string): Promise<Response> {
 const basicAuthHeader = "Basic " + btoa(BASIC_AUTH);
 const realm = "LINEオープンチャットのパスワードを2回入力";
 
-export const handler: Handlers<Props> = {
-  async GET(req, ctx) {
+export const handler = define.handlers<Props>({
+  async GET(ctx) {
+    const req = ctx.req;
     const auth = req.headers.get("authorization");
     if (auth !== basicAuthHeader) {
       return new Response("Unauthorized", {
         status: 401,
         headers: {
-          "WWW-Authenticate": `Basic realm="${encodeURIComponent(realm)}", charset="UTF-8"`,
+          "WWW-Authenticate": `Basic realm="${
+            encodeURIComponent(realm)
+          }", charset="UTF-8"`,
         },
       });
     }
@@ -71,9 +75,9 @@ export const handler: Handlers<Props> = {
       if (a.attendance !== ATTEND_YES && b.attendance === ATTEND_YES) return 1;
       return a.attendance.localeCompare(b.attendance);
     });
-    return ctx.render({ rows: filtered });
+    return { data: { rows: filtered } };
   },
-};
+});
 
 // CSV parser that handles newlines inside quoted fields
 function parseCSV(text: string): string[][] {
@@ -128,7 +132,10 @@ export default function AnswersPage({ data }: { data: Props }) {
       <h1 class="text-xl m-4">回答一覧</h1>
       <div class="answers m-4">
         {data.rows.map((row, index) => (
-          <div key={index} class="flex flex-wrap gap-4 border-t even:bg-base-200">
+          <div
+            key={index}
+            class="flex flex-wrap gap-4 border-t even:bg-base-200"
+          >
             <div class="font-bold">{row.name}</div>
             <div>{row.attendance}</div>
             <div>{row.location}</div>

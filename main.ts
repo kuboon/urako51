@@ -1,14 +1,6 @@
-/// <reference no-default-lib="true" />
-/// <reference lib="dom" />
-/// <reference lib="dom.iterable" />
-/// <reference lib="dom.asynciterable" />
-/// <reference lib="deno.ns" />
+import { App, staticFiles, trailingSlashes } from "fresh";
 
-import "$std/dotenv/load.ts";
-
-import { createHandler } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
-import config from "./fresh.config.ts";
-
-const handler = createHandler(manifest, config);
-export default { fetch: await handler };
+export const app = new App()
+  .use(staticFiles())
+  .fsRoutes()
+  .use(trailingSlashes("never"));

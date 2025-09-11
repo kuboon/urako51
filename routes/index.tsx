@@ -25,7 +25,7 @@ const LINE = ({ size }: { size: number }) => (
   </svg>
 );
 
-function App() {
+export default function App() {
   return (
     <div class="min-h-screen bg-base-300">
       {/* Hero Section */}
@@ -46,7 +46,12 @@ function App() {
                 >
                   @ホテルブリランテ武蔵野
                 </a>
-                <a href="https://forms.gle/YBWXq6jNw2MNNojQ8" class="link link-primary text-2xl">参加申込フォーム</a>
+                <a
+                  href="https://forms.gle/YBWXq6jNw2MNNojQ8"
+                  class="link link-primary text-2xl"
+                >
+                  参加申込フォーム
+                </a>
                 <p>出欠未定の場合も一旦ご登録をお願いします。</p>
               </div>
             </div>
@@ -129,5 +134,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
