@@ -3,11 +3,12 @@ const subjects = [
   "第51回生",
   "1999年卒",
 ];
+const title = `${subjects[0]} ${subjects[1]} (${subjects[2]})`;
 export default {
-  title: `${subjects[0]} ${subjects[1]} (${subjects[2]})`,
+  title,
   subjects,
   description:
-    "浦和高校同窓会 第51回生 (1999年卒)の公式サイトです。2025年秋頃に開催予定の同窓会に関する情報をお届けします。",
+    `${title}の公式サイトです。2025年11月23日に開催予定の同窓会に関する情報をお届けします。`,
   photos: [
     { alt: "長屋", src: "nagaya.jpg" },
     { alt: "正門", src: "seimon.jpg" },
