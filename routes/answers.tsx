@@ -63,7 +63,7 @@ export const handler = define.handlers<Props>({
       });
       return row;
     });
-    const filtered = rows.map((row) => ({
+    const entries = rows.map((row) => ({
       attendance: row["参加表明"],
       name: row["氏名"],
       location: row["活動地域"],
@@ -72,9 +72,15 @@ export const handler = define.handlers<Props>({
       const ATTEND_YES = "参加します";
       if (a.attendance === ATTEND_YES && b.attendance !== ATTEND_YES) return -1;
       if (a.attendance !== ATTEND_YES && b.attendance === ATTEND_YES) return 1;
+      
+      const teacher = "先生";
+      const aIsTeacher = a.name.endsWith(teacher);
+      const bIsTeacher = b.name.endsWith(teacher);
+      if (aIsTeacher && !bIsTeacher) return -1;
+      if (!aIsTeacher && bIsTeacher) return 1;
       return a.attendance.localeCompare(b.attendance);
     });
-    return { data: { rows: filtered } };
+    return { data: { rows: entries } };
   },
 });
 
