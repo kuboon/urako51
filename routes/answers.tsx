@@ -3,7 +3,6 @@ import { define } from "../define.ts";
 const BASIC_AUTH = Deno.env.get("BASIC_AUTH");
 const csvUrl = Deno.env.get("CSV_URL");
 if (!BASIC_AUTH || !csvUrl) {
-  console.log("hoge", BASIC_AUTH, csvUrl);
   throw new Error("BASIC_AUTH or CSV_URL is not set");
 }
 type Row = {
