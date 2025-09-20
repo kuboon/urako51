@@ -3,7 +3,8 @@
 ## Project Overview
 
 - Deno is a modern runtime for JavaScript and TypeScript. https://deno.land/
-  - Deno has nodejs compatibility: https://docs.deno.com/runtime/fundamentals/node/
+  - Deno has nodejs compatibility:
+    https://docs.deno.com/runtime/fundamentals/node/
   - but better to use Deno native APIs when possible.
 - This is a [Fresh](https://fresh.deno.dev/) project using Deno, with Tailwind
   CSS and daisyUI for UI components.
