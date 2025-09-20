@@ -1,0 +1,26 @@
+name: lint, test, and build
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno lint
+      - run: deno task build
+        env:
+          BASIC_AUTH: "dummy:dummy"
+          CSV_URL: "https://example.com/dummy.csv"
