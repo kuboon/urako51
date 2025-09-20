@@ -5,7 +5,7 @@ const csvUrl = Deno.env.get("CSV_URL");
 if (!BASIC_AUTH || !csvUrl) {
   throw new Error("BASIC_AUTH or CSV_URL is not set");
 }
-type Row = {
+type Entry = {
   attendance: string;
   name: string;
   location: string;
@@ -13,7 +13,7 @@ type Row = {
 };
 
 type Props = {
-  rows: Row[];
+  entries: Entry[];
 };
 
 const cache = await caches.open("answers-csv-cache");
@@ -68,19 +68,11 @@ export const handler = define.handlers<Props>({
       name: row["氏名"],
       location: row["活動地域"],
       update: row["近況"],
+      sortScore: (row["氏名"].endsWith("先生") ? 0 : 1) + (row["参加表明"] === "参加します" ? 1 : 2),
     })).sort((a, b) => {
-      const ATTEND_YES = "参加します";
-      if (a.attendance === ATTEND_YES && b.attendance !== ATTEND_YES) return -1;
-      if (a.attendance !== ATTEND_YES && b.attendance === ATTEND_YES) return 1;
-      
-      const teacher = "先生";
-      const aIsTeacher = a.name.endsWith(teacher);
-      const bIsTeacher = b.name.endsWith(teacher);
-      if (aIsTeacher && !bIsTeacher) return -1;
-      if (!aIsTeacher && bIsTeacher) return 1;
-      return a.attendance.localeCompare(b.attendance);
+      return (a.sortScore - b.sortScore) || a.attendance.localeCompare(b.attendance, "ja");
     });
-    return { data: { rows: entries } };
+    return { data: { entries } };
   },
 });
 
@@ -136,10 +128,10 @@ export default function AnswersPage({ data }: { data: Props }) {
     <div>
       <h1 class="text-xl m-4">回答一覧</h1>
       <div class="answers m-4">
-        {data.rows.map((row, index) => (
+        {data.entries.map((row, index) => (
           <div
             key={index}
-            class="flex flex-wrap gap-4 border-t even:bg-base-200"
+            class="flex flex-wrap gap-x-4 border-t even:bg-base-200"
           >
             <div class="font-bold">{row.name}</div>
             <div>{row.attendance}</div>
