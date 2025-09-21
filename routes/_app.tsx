@@ -2,7 +2,7 @@ import data from "../components/data.ts";
 import { define } from "../define.ts";
 export default define.page(function App({ Component }) {
   return (
-    <html>
+    <html lang='ja'>
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

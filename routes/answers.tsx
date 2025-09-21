@@ -1,4 +1,5 @@
 import { define } from "../define.ts";
+import { parseCSV } from "../lib/parseCSV.ts";
 
 const BASIC_AUTH = Deno.env.get("BASIC_AUTH");
 const csvUrl = Deno.env.get("CSV_URL");
@@ -68,78 +69,41 @@ export const handler = define.handlers<Props>({
       name: row["氏名"],
       location: row["活動地域"],
       update: row["近況"],
-      sortScore: (row["氏名"].endsWith("先生") ? 0 : 1) + (row["参加表明"] === "参加します" ? 1 : 2),
+      sortScore: (row["氏名"].endsWith("先生") ? 0 : 1) +
+        (row["参加表明"] === "参加します" ? 1 : 2),
     })).sort((a, b) => {
-      return (a.sortScore - b.sortScore) || a.attendance.localeCompare(b.attendance, "ja");
+      return (a.sortScore - b.sortScore) ||
+        a.attendance.localeCompare(b.attendance, "ja");
     });
     return { data: { entries } };
   },
 });
 
-// CSV parser that handles newlines inside quoted fields
-function parseCSV(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let cell = "";
-  let inQuotes = false;
-  let i = 0;
-  while (i < text.length) {
-    const char = text[i];
-    if (inQuotes) {
-      if (char === '"') {
-        if (text[i + 1] === '"') {
-          cell += '"';
-          i++;
-        } else {
-          inQuotes = false;
-        }
-      } else {
-        cell += char;
-      }
-    } else {
-      if (char === '"') {
-        inQuotes = true;
-      } else if (char === ",") {
-        row.push(cell);
-        cell = "";
-      } else if (char === "\n" || char === "\r") {
-        // Handle \r\n or \n as row end
-        if (char === "\r" && text[i + 1] === "\n") i++;
-        row.push(cell);
-        rows.push(row);
-        row = [];
-        cell = "";
-      } else {
-        cell += char;
-      }
-    }
-    i++;
-  }
-  // Add last cell/row if not empty
-  if (cell.length > 0 || row.length > 0) {
-    row.push(cell);
-    rows.push(row);
-  }
-  return rows;
-}
-
 export default function AnswersPage({ data }: { data: Props }) {
+  const teachers = data.entries.filter((e) => e.name.endsWith("先生"));
+  const graduates = data.entries.filter((e) => !e.name.endsWith("先生"));
   return (
     <div>
       <h1 class="text-xl m-4">回答一覧</h1>
+      <h2 class="text-lg m-4">先生方</h2>
       <div class="answers m-4">
-        {data.entries.map((row, index) => (
-          <div
-            key={index}
-            class="flex flex-wrap gap-x-4 border-t even:bg-base-200"
-          >
-            <div class="font-bold">{row.name}</div>
-            <div>{row.attendance}</div>
-            <div>{row.location}</div>
-            <div>{row.update}</div>
-          </div>
-        ))}
+        {teachers.map((row, index) => <Row key={index} row={row} />)}
       </div>
+      <h2 class="text-lg m-4">卒業生</h2>
+      <div class="answers m-4">
+        {graduates.map((row, index) => <Row key={index} row={row} />)}
+      </div>
+    </div>
+  );
+}
+
+function Row({ row }: { row: Entry }) {
+  return (
+    <div class="flex flex-wrap gap-x-4 border-t even:bg-base-200">
+      <div class="font-bold">{row.name}</div>
+      <div>{row.attendance}</div>
+      <div>{row.location}</div>
+      <div>{row.update}</div>
     </div>
   );
 }
