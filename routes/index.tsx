@@ -39,20 +39,14 @@ export default function App() {
             <p class="text-2xl mb-4">{data.subjects[2]}</p>
             <div class="card bg-base-100 shadow-xl">
               <div class="card-body">
-                <p class="text-lg font-bold">2025年11月23日 17:00</p>
+                <p class="text-lg font-bold">2025年11月23日</p>
                 <a
                   href="https://www.hotel-brillante.com/access"
                   class="link link-primary"
                 >
                   @ホテルブリランテ武蔵野
                 </a>
-                <a
-                  href="https://forms.gle/YBWXq6jNw2MNNojQ8"
-                  class="link link-primary text-2xl"
-                >
-                  参加申込フォーム
-                </a>
-                <p>出欠未定の場合も一旦ご登録をお願いします。</p>
+                <p>ちょうど100名が参加し、盛況のうちに終了しました。</p>
               </div>
             </div>
           </div>
@@ -71,25 +65,6 @@ export default function App() {
         ))}
       </div>
 
-      {/* Chat Section */}
-      <div class="container mx-auto px-4 py-16 bg-base-100">
-        <div class="flex flex-col gap-8">
-          {data.messages.map((message, index) => (
-            <div key={index} class="chat chat-start">
-              <div class="chat-image avatar">
-                <div class="w-12 mask mask-circle" />
-              </div>
-              <div class="chat-header">
-                {message.date}
-              </div>
-              <div class="chat-bubble whitespace-pre-line">
-                {message.text}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div class="container mx-auto px-4 py-16">
         <div class="flex flex-col md:flex-row gap-8 justify-center items-center">
           <a
@@ -106,6 +81,24 @@ export default function App() {
             <FACEBOOK size={24} />
             Facebookグループに参加
           </a>
+        </div>
+      </div>
+      {/* Chat Section */}
+      <div class="container mx-auto px-4 py-16 bg-base-100">
+        <div class="flex flex-col gap-8">
+          {data.messages.map((message, index) => (
+            <div key={index} class="chat chat-start">
+              <div class="chat-image avatar">
+                <div class="w-12 mask mask-circle" />
+              </div>
+              <div class="chat-header">
+                {message.date}
+              </div>
+              <div class="chat-bubble whitespace-pre-line">
+                {message.text}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

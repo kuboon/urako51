@@ -7,14 +7,21 @@ const title = `${subjects[0]} ${subjects[1]} (${subjects[2]})`;
 export default {
   title,
   subjects,
-  description:
-    `${title}の公式サイトです。2025年11月23日に開催予定の同窓会に関する情報をお届けします。`,
+  description: `${title}の公式サイトです。同窓会に関する情報をお届けします。`,
   photos: [
     { alt: "長屋", src: "nagaya.jpg" },
     { alt: "正門", src: "seimon.jpg" },
     { alt: "五重塔", src: "gojunoto.jpg" },
   ],
   messages: [
+    {
+      icon: "mikami.png",
+      date: "2025-11-23",
+      text:
+        `本日、同窓会にご参加いただいた皆さん、本当にありがとうございました。
+ちょうど100名もの仲間が集まり、久しぶりにあの独特で大好きだった浦高の空気を思い出し、胸がいっぱいになりました。
+また30周年で、皆さんと元気にお会いできることを楽しみにしています。`,
+    },
     {
       icon: "mikami.png",
       date: "2025-11-16",
